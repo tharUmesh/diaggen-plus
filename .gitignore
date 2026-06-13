@@ -1,0 +1,54 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# DiagGen+ — .gitignore
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── Secrets ───────────────────────────────────────────────────────────────────
+.env
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.so
+
+# ── Conda / venv ──────────────────────────────────────────────────────────────
+.conda/
+env/
+venv/
+.venv/
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ── Data (never commit raw or processed data) ─────────────────────────────────
+data/raw/*
+data/processed/*
+data/synthetic/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/synthetic/.gitkeep
+
+# ── Model checkpoints (can be large; share via HF Hub or Drive instead) ───────
+models/bert/*
+models/vae/*
+!models/bert/.gitkeep
+!models/vae/.gitkeep
+
+# ── MLflow / experiment tracking ─────────────────────────────────────────────
+reports/mlruns/
+reports/logs/
+
+# ── OS / editor ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

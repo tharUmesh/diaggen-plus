@@ -1,0 +1,116 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# DiagGen+ — Prompt Templates
+# All LLM prompts are defined here, not in source code.
+# Use {placeholders} for dynamic injection at runtime.
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── System Prompt (shared across all LLM calls) ───────────────────────────────
+system_prompt: >
+  You are a clinical reasoning assistant supporting medical education and research.
+  You reason carefully, step by step, about symptom patterns and probable diagnoses.
+  You always acknowledge uncertainty, present confidence levels, and remind users
+  that your output is for educational purposes only and never a substitute for
+  professional medical evaluation.
+
+# ── Phase 1: Single-shot Explanation ─────────────────────────────────────────
+# Used after BERT classifies with sufficient confidence (>= threshold).
+# No follow-up questions needed.
+explanation:
+  template: >
+    A patient has reported the following symptoms: {symptoms}
+
+    The diagnostic model's top predictions are:
+    {predictions}
+
+    Using chain-of-thought reasoning, provide a structured explanation in this format:
+
+    Step 1 — Symptom Analysis:
+    Identify which symptoms are most clinically significant and why.
+
+    Step 2 — Pattern Matching:
+    Explain which symptom clusters point toward the leading diagnosis and why
+    they are more consistent with {top_disease} than the alternatives.
+
+    Step 3 — Differential Reasoning:
+    Briefly explain why the other candidate diagnoses were ranked lower.
+
+    Final Assessment:
+    State the most probable diagnosis, confidence level, and 2-3 key reasons.
+
+    Important Reminder:
+    End with a clear disclaimer that this is an educational simulation only.
+
+# ── Phase 3: Follow-up Question Generation ───────────────────────────────────
+# Used when BERT confidence < threshold. Goal: generate ONE discriminating question.
+followup_question:
+  template: >
+    A patient has reported: {symptoms}
+
+    The diagnostic model's current top candidates and confidence scores are:
+    {predictions}
+
+    The model is not yet confident enough to make a final assessment (current
+    top confidence: {top_confidence:.0%}, threshold: {threshold:.0%}).
+
+    The conversation so far:
+    {conversation_history}
+
+    Your task: Generate exactly ONE targeted follow-up question that will best
+    help discriminate between the top candidate diseases. The question must:
+    - Be specific and clinically relevant
+    - Be answerable by a non-medical patient (avoid jargon)
+    - Target the most differentiating feature between the top candidates
+    - Be a single, clear question (not a list)
+
+    Respond with only the question, nothing else.
+
+# ── Phase 3: Final Explanation after QA Loop ─────────────────────────────────
+# Used after the QA loop terminates (confidence reached or max turns hit).
+qa_final_explanation:
+  template: >
+    A patient initially reported: {initial_symptoms}
+
+    During the diagnostic conversation, the following follow-up information was gathered:
+    {conversation_history}
+
+    The diagnostic model's final predictions after all follow-up are:
+    {final_predictions}
+
+    Using chain-of-thought reasoning, provide a structured explanation:
+
+    Step 1 — Initial Assessment:
+    What the initial symptoms suggested and which diseases were considered.
+
+    Step 2 — Refinement Through Follow-up:
+    For each follow-up exchange, explain how that answer shifted (or confirmed)
+    the diagnosis and why.
+
+    Step 3 — Final Reasoning:
+    Explain why {top_disease} is the most probable diagnosis given the complete
+    picture, and why alternative diagnoses were ruled out.
+
+    Final Assessment:
+    State the diagnosis, confidence, key supporting factors, and recommended
+    next steps (e.g., "consult a physician for confirmation").
+
+    Important Reminder:
+    End with a clear disclaimer that this is an educational simulation only.
+
+# ── Confidence-not-reached fallback ──────────────────────────────────────────
+# Used when max_turns is hit but confidence is still below threshold.
+low_confidence_explanation:
+  template: >
+    A patient reported: {symptoms}
+
+    After {num_turns} follow-up exchanges, the model has not reached
+    sufficient confidence for a definitive assessment.
+
+    Current top candidates are:
+    {predictions}
+
+    Provide a brief, honest explanation that:
+    1. Lists the top 2-3 possible diagnoses and what supports each.
+    2. Clearly states that the symptoms are ambiguous or could indicate
+       multiple conditions.
+    3. Strongly recommends in-person evaluation by a licensed physician.
+    4. Ends with the standard educational disclaimer.

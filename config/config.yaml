@@ -1,0 +1,124 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# DiagGen+ — Main Configuration
+# All tunable parameters live here. Never hardcode these in source files.
+# ══════════════════════════════════════════════════════════════════════════════
+
+project:
+  name: "DiagGen+"
+  version: "0.1.0"
+  description: "Medical QA Diagnostic Assistant"
+
+# ── Dataset ──────────────────────────────────────────────────────────────────
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  synthetic_dir: "data/synthetic"
+
+  # Primary dataset options (comment out the one not in use)
+  dataset_name: "symptom_disease_25k"    # or "symptom2disease_1k"
+
+  split:
+    train: 0.80
+    val: 0.10
+    test: 0.10
+    random_seed: 42
+    stratify: true                        # stratify by disease class
+
+  # Classes with fewer than this many samples are treated as "rare"
+  rare_class_threshold: 100
+
+# ── NLP Preprocessing ─────────────────────────────────────────────────────────
+nlp:
+  spacy_model: "en_core_web_sm"
+  remove_stopwords: true
+  lemmatize: true
+  max_sequence_length: 256               # tokens fed to BERT
+
+  embeddings:
+    type: "glove"                         # options: "glove" | "fasttext" | "word2vec"
+    glove_dim: 100                        # 50 | 100 | 200 | 300
+    fasttext_dim: 300
+
+# ── BERT Classifier ───────────────────────────────────────────────────────────
+bert:
+  base_model: "dmis-lab/biobert-base-cased-v1.2"   # BioBERT; swap to "bert-base-uncased" if needed
+  num_labels: 24                          # update after EDA (matches dataset class count)
+  max_length: 256
+  output_dir: "models/bert"
+
+  training:
+    learning_rate: 2.0e-5
+    batch_size: 16
+    num_epochs: 5
+    warmup_ratio: 0.1
+    weight_decay: 0.01
+    early_stopping_patience: 2           # stop if val loss doesn't improve for N epochs
+    fp16: false                          # set true if running on GPU
+
+  # Confidence gate — below this, trigger QA loop
+  confidence_threshold: 0.80
+  top_k_predictions: 3                   # return top-3 candidate diseases to user
+
+# ── Conditional VAE (Phase 2) ────────────────────────────────────────────────
+vae:
+  latent_dim: 64
+  hidden_dims: [256, 128]
+  output_dir: "models/vae"
+
+  training:
+    learning_rate: 1.0e-3
+    batch_size: 32
+    num_epochs: 50
+    kl_weight: 0.5                        # β in β-VAE loss
+
+  augmentation:
+    target_samples_per_rare_class: 250    # generate until each rare class has this many
+    validation:
+      statistical_check: true            # compare mean/variance of synthetic vs real
+      human_review_sample: 50            # number of samples to flag for manual review
+
+# ── QA Loop (Phase 3) ────────────────────────────────────────────────────────
+qa:
+  max_turns: 4                           # max follow-up questions before forcing a decision
+  confidence_threshold: 0.80            # same as bert.confidence_threshold; kept separate for clarity
+  min_confidence_delta: 0.05            # stop early if confidence hasn't moved by this amount
+
+# ── LLM Provider ──────────────────────────────────────────────────────────────
+# Set active_provider to switch between APIs. API keys are in .env, never here.
+llm:
+  active_provider: "anthropic"           # options: "anthropic" | "openai" | "ollama"
+
+  anthropic:
+    model: "claude-sonnet-4-6"
+    max_tokens: 512
+    temperature: 0.3                     # low temperature for factual medical reasoning
+
+  openai:
+    model: "gpt-4o-mini"
+    max_tokens: 512
+    temperature: 0.3
+
+  ollama:
+    model: "mistral"                     # must be pulled locally: `ollama pull mistral`
+    host: "http://localhost:11434"
+    max_tokens: 512
+    temperature: 0.3
+
+# ── Streamlit App ─────────────────────────────────────────────────────────────
+app:
+  title: "DiagGen+"
+  subtitle: "Medical QA Diagnostic Assistant"
+  disclaimer: >
+    EDUCATIONAL SIMULATION ONLY. This tool is not approved for clinical use
+    and does not constitute medical advice. Always consult a licensed physician.
+  theme_color: "#1F3864"
+  max_symptom_input_chars: 1000
+
+# ── Logging & Experiment Tracking ────────────────────────────────────────────
+logging:
+  level: "INFO"                          # DEBUG | INFO | WARNING | ERROR
+  log_dir: "reports/logs"
+  mlflow:
+    enabled: true
+    tracking_uri: "reports/mlruns"
+    experiment_name: "diaggen-plus"
