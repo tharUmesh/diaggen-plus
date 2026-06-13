@@ -22,7 +22,10 @@ _TRAIN_RATIO    = get("data.split.train", 0.80)
 _VAL_RATIO      = get("data.split.val",   0.10)
 _SEED           = get("data.split.random_seed", 42)
 _STRATIFY       = get("data.split.stratify", True)
-_PROCESSED_DIR  = Path(get("data.processed_dir", "data/processed"))
+
+# Resolve paths relative to project root (parent of src/)
+_PROJECT_ROOT   = Path(__file__).parent.parent.parent
+_PROCESSED_DIR  = _PROJECT_ROOT / get("data.processed_dir", "data/processed")
 _TRAIN_FILE     = get("data.train_file", "train_imbalanced.csv")
 _VAL_FILE       = get("data.val_file",   "val_imbalanced.csv")
 _TEST_FILE      = get("data.test_file",  "test_imbalanced.csv")

@@ -1,0 +1,35 @@
+2026-06-13 19:34:31 | INFO     | src.training.trainer | Loaded dataset: 853 rows, 22 disease classes.
+2026-06-13 19:38:06 | INFO     | src.training.trainer | Split — Train: 682 | Val: 85 | Test: 86
+2026-06-13 19:38:06 | INFO     | src.training.trainer | Label map built: 22 classes.
+2026-06-13 20:53:01 | INFO     | src.training.trainer | Loaded dataset: 1065 rows, 22 disease classes.
+2026-06-13 20:53:20 | INFO     | src.training.trainer | Split — Train: 852 | Val: 106 | Test: 107
+2026-06-13 20:53:21 | INFO     | src.training.trainer | Label map built: 22 classes.
+2026-06-13 22:10:38 | INFO     | src.training.trainer | Loaded dataset: 1065 rows, 22 disease classes.
+2026-06-13 22:21:12 | INFO     | src.training.trainer | Split — Train: 712 | Val: 89 | Test: 89
+2026-06-13 22:21:12 | INFO     | src.training.trainer | Label map built: 22 classes.
+2026-06-13 22:21:12 | INFO     | src.training.trainer | Split — Train: 852 | Val: 106 | Test: 107
+2026-06-13 22:43:53 | INFO     | src.training.trainer | Split — Train: 852 | Val: 106 | Test: 107
+2026-06-13 22:43:53 | INFO     | src.training.trainer | Label map built: 22 classes.
+2026-06-13 22:59:59 | INFO     | src.training.trainer | Loaded splits — Train: 712 | Val: 89 | Test: 89
+2026-06-13 23:00:34 | INFO     | src.training.trainer | Label map built: 22 classes.
+2026-06-13 23:02:39 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-13 23:02:39 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/dmis-lab/biobert-base-cased-v1.2/67c9c25b46986521ca33df05d8540da1210b3256/config.json "HTTP/1.1 200 OK"
+2026-06-13 23:02:39 | INFO     | httpx | HTTP Request: GET https://huggingface.co/api/resolve-cache/models/dmis-lab/biobert-base-cased-v1.2/67c9c25b46986521ca33df05d8540da1210b3256/config.json "HTTP/1.1 200 OK"
+2026-06-13 23:02:40 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-06-13 23:02:40 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-06-13 23:02:40 | WARNING  | huggingface_hub.utils._http | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-06-13 23:02:40 | INFO     | httpx | HTTP Request: GET https://huggingface.co/api/models/dmis-lab/biobert-base-cased-v1.2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-06-13 23:02:40 | INFO     | httpx | HTTP Request: GET https://huggingface.co/api/models/dmis-lab/biobert-base-cased-v1.2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-13 23:02:41 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/vocab.txt "HTTP/1.1 307 Temporary Redirect"
+2026-06-13 23:02:41 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/dmis-lab/biobert-base-cased-v1.2/67c9c25b46986521ca33df05d8540da1210b3256/vocab.txt "HTTP/1.1 200 OK"
+2026-06-13 23:02:41 | INFO     | httpx | HTTP Request: GET https://huggingface.co/api/resolve-cache/models/dmis-lab/biobert-base-cased-v1.2/67c9c25b46986521ca33df05d8540da1210b3256/vocab.txt "HTTP/1.1 200 OK"
+2026-06-13 23:02:41 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/tokenizer.json "HTTP/1.1 404 Not Found"
+2026-06-13 23:02:41 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/added_tokens.json "HTTP/1.1 404 Not Found"
+2026-06-13 23:02:42 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/special_tokens_map.json "HTTP/1.1 404 Not Found"
+2026-06-13 23:02:42 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-06-13 23:02:43 | INFO     | src.models.classifier | Loading base model: dmis-lab/biobert-base-cased-v1.2
+2026-06-13 23:02:43 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-13 23:02:44 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/dmis-lab/biobert-base-cased-v1.2/67c9c25b46986521ca33df05d8540da1210b3256/config.json "HTTP/1.1 200 OK"
+2026-06-13 23:02:44 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-06-13 23:02:44 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-06-13 23:02:45 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/pytorch_model.bin "HTTP/1.1 302 Found"
