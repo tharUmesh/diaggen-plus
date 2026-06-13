@@ -94,9 +94,13 @@ See [`data/README.md`](data/README.md) for full instructions. Quick start:
 ```bash
 # Option B — Hugging Face (fastest, no Kaggle account needed)
 python -c "
-from datasets import load_dataset
-ds = load_dataset('gretelai/symptom_to_diagnosis')
-ds['train'].to_csv('data/raw/symptom_to_diagnosis.csv', index=False)
+from datasets import load_dataset, concatenate_datasets
+ds = load_dataset('gretelai/symptom_to_diagnosis') 
+combined_ds = concatenate_datasets(list(ds.values()))
+combined_ds.to_csv(
+    'data/raw/symptom_to_diagnosis.csv', 
+    index=False
+)
 "
 ```
 

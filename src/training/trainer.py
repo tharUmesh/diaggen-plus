@@ -18,10 +18,14 @@ from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-_TRAIN_RATIO = get("data.split.train", 0.80)
-_VAL_RATIO   = get("data.split.val",   0.10)
-_SEED        = get("data.split.random_seed", 42)
-_STRATIFY    = get("data.split.stratify", True)
+_TRAIN_RATIO    = get("data.split.train", 0.80)
+_VAL_RATIO      = get("data.split.val",   0.10)
+_SEED           = get("data.split.random_seed", 42)
+_STRATIFY       = get("data.split.stratify", True)
+_PROCESSED_DIR  = Path(get("data.processed_dir", "data/processed"))
+_TRAIN_FILE     = get("data.train_file", "train_imbalanced.csv")
+_VAL_FILE       = get("data.val_file",   "val_imbalanced.csv")
+_TEST_FILE      = get("data.test_file",  "test_imbalanced.csv")
 
 
 def load_dataset(path: str | Path) -> pd.DataFrame:
@@ -61,6 +65,18 @@ def build_label_maps(df: pd.DataFrame) -> tuple[dict, dict, LabelEncoder]:
     id2label = {i: c for i, c in enumerate(classes)}
     logger.info(f"Label map built: {len(classes)} classes.")
     return label2id, id2label, le
+
+
+def load_processed_splits() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """
+    Load the pre-split CSVs written by phase0_eda.ipynb.
+    Use this in Phase 1 onwards instead of re-splitting from scratch.
+    """
+    train_df = pd.read_csv(_PROCESSED_DIR / _TRAIN_FILE)
+    val_df   = pd.read_csv(_PROCESSED_DIR / _VAL_FILE)
+    test_df  = pd.read_csv(_PROCESSED_DIR / _TEST_FILE)
+    logger.info(f"Loaded splits — Train: {len(train_df)} | Val: {len(val_df)} | Test: {len(test_df)}")
+    return train_df, val_df, test_df
 
 
 def run_bert_training(data_path: str | Path) -> DiagnosisClassifier:
