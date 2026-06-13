@@ -85,7 +85,7 @@ class DiagnosisClassifier:
             num_train_epochs=_EPOCHS,
             warmup_ratio=_WARMUP,
             weight_decay=_WD,
-            evaluation_strategy="epoch",
+            eval_strategy="epoch",
             save_strategy="epoch",
             load_best_model_at_end=True,
             metric_for_best_model="eval_loss",

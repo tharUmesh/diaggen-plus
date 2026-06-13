@@ -9,9 +9,9 @@ dependencies:
   - pip
 
   # ── Deep Learning ─────────────────────────────────────────────────────────
-  - pytorch>=2.1
-  - torchvision
-  - torchaudio
+  - pytorch=2.6.0
+  - torchvision=0.21.0
+  - torchaudio=2.6.0
   - cpuonly                        # remove this line and add cudatoolkit if GPU available
 
   # ── Data & ML ─────────────────────────────────────────────────────────────
@@ -48,12 +48,13 @@ dependencies:
   # ── pip-only packages ──────────────────────────────────────────────────────
   - pip:
       # Hugging Face ecosystem
-      - transformers>=4.40
-      - datasets>=2.18
+      - transformers==4.52.4
+      - datasets==3.0.0
       - evaluate>=0.4
-      - accelerate>=0.28
+      - accelerate==0.33.0
       - setfit>=1.0               # few-shot learning (Phase 2)
       - huggingface-hub>=0.22
+      - sentence-transformers>=3.0.0
 
       # LLM provider clients (all installed; active one set in config)
       - anthropic>=0.25           # Claude API

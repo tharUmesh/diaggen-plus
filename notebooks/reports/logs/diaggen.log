@@ -33,3 +33,13 @@
 2026-06-13 23:02:44 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
 2026-06-13 23:02:44 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/model.safetensors.index.json "HTTP/1.1 404 Not Found"
 2026-06-13 23:02:45 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/pytorch_model.bin "HTTP/1.1 302 Found"
+2026-06-13 23:05:14 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-06-13 23:05:14 | INFO     | httpx | HTTP Request: GET https://huggingface.co/api/models/dmis-lab/biobert-base-cased-v1.2 "HTTP/1.1 200 OK"
+2026-06-13 23:05:14 | INFO     | httpx | HTTP Request: GET https://huggingface.co/api/models/dmis-lab/biobert-base-cased-v1.2/commits/main "HTTP/1.1 200 OK"
+2026-06-13 23:05:15 | INFO     | httpx | HTTP Request: GET https://huggingface.co/api/models/dmis-lab/biobert-base-cased-v1.2/discussions?p=0 "HTTP/1.1 200 OK"
+2026-06-13 23:05:15 | INFO     | httpx | HTTP Request: GET https://huggingface.co/api/models/dmis-lab/biobert-base-cased-v1.2/commits/refs%2Fpr%2F10 "HTTP/1.1 200 OK"
+2026-06-13 23:05:16 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/refs%2Fpr%2F10/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-06-13 23:05:16 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/dmis-lab/biobert-base-cased-v1.2/resolve/refs%2Fpr%2F10/model.safetensors "HTTP/1.1 302 Found"
+2026-06-14 00:04:09 | INFO     | src.training.trainer | Loaded splits — Train: 712 | Val: 89 | Test: 89
+2026-06-14 00:04:09 | INFO     | src.training.trainer | Label map built: 22 classes.
+2026-06-14 00:04:27 | INFO     | src.models.classifier | Loading base model: dmis-lab/biobert-base-cased-v1.2
